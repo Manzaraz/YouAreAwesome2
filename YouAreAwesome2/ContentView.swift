@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var message = ""
     @State private var imageName = ""
-    @State private var isActivated = false
+    @State private var isActivated = true
     
     var body: some View {
         
@@ -30,16 +30,14 @@ struct ContentView: View {
             Spacer()
             
             Button("Press Me!") {
-                let message1 = "You Are Awesome!"
-                let message2 = "You Are Great!"
+                let message1 = "You Are Awesome!",
+                    message2 = "You Are Great!",
+                    imageName1 = "sun.max.fill",
+                    imageName2 = "hand.thumbsup"
                 
-                if !isActivated {
-                    message = message1
-                    imageName = "sun.max.fill"
-                } else {
-                    message = message2
-                    imageName = "hand.thumbsup"
-                }
+                message = isActivated ? message1 : message2
+                imageName = isActivated ? imageName1 : imageName2
+                
                 isActivated.toggle()
             }
             .buttonStyle(.borderedProminent)
