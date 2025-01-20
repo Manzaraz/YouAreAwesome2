@@ -11,39 +11,42 @@ struct ContentView: View {
     @State private var message = ""
     @State private var imageName = ""
     @State private var isActivated = true
+    @State private var imageNumber = 0
     
     var body: some View {
         
         VStack {
             Spacer()
             
-            Image(systemName: imageName)
+            Image(imageName)
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(.orange)
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .shadow(radius: 30)
             
             Text(message)
                 .font(.largeTitle)
-                .fontWeight(.ultraLight)
-                .foregroundStyle(.primary)
+                .fontWeight(.heavy)
+                .foregroundStyle(.red)
             
             Spacer()
             
             Button("Press Me!") {
                 let message1 = "You Are Awesome!",
-                    message2 = "You Are Great!",
-                    imageName1 = "sun.max.fill",
-                    imageName2 = "hand.thumbsup"
-                
+                    message2 = "You Are Great!"
+                    
+//                var randomImage = "image\(Int.random(in: 0..<10))" // MARK: this is my resolution
+//                imageName = randomImage
+                                
                 message = isActivated ? message1 : message2
-                imageName = isActivated ? imageName1 : imageName2
+                
+                imageName = imageName == "image9" ? "image0" : "image\(imageNumber)"
+                imageNumber = imageNumber == 9 ? 0 : imageNumber + 1
                 
                 isActivated.toggle()
             }
             .buttonStyle(.borderedProminent)
             .font(.title2)
-            .tint(.orange)
-            
         }
         .padding()
     }
