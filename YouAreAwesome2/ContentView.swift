@@ -11,6 +11,7 @@ struct ContentView: View {
     @State private var message = ""
     @State private var imageName = ""
     @State private var imageNumber = 0
+    @State private var messageIndex = 0
     
     var body: some View {
         
@@ -26,15 +27,17 @@ struct ContentView: View {
             Text(message)
                 .font(.largeTitle)
                 .fontWeight(.heavy)
+                .multilineTextAlignment(.center)
                 .foregroundStyle(.red)
+                
             
             Spacer()
             
             Button("Press Me!") {
-                let message1 = "You Are Awesome!",
-                    message2 = "You Are Great!"
+                let messages = ["You Are Awesome!", "You Are Great!", "Fabulous? That's You!", "Swift Rules!", "When the Genius Needs Help, They Call You!"]
                                 
-                message = imageNumber % 2 == 0 ? message1 : message2
+                message = messages[messageIndex]
+                messageIndex = messageIndex == messages.count-1 ? 0 : messageIndex+1
 
                 //                var randomImage = "image\(Int.random(in: 0..<10))" // MARK: this is my resolution
                 //                imageName = randomImage
