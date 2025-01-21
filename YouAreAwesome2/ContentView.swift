@@ -10,7 +10,6 @@ import SwiftUI
 struct ContentView: View {
     @State private var message = ""
     @State private var imageName = ""
-    @State private var isActivated = true
     @State private var imageNumber = 0
     
     var body: some View {
@@ -34,16 +33,14 @@ struct ContentView: View {
             Button("Press Me!") {
                 let message1 = "You Are Awesome!",
                     message2 = "You Are Great!"
-                    
-//                var randomImage = "image\(Int.random(in: 0..<10))" // MARK: this is my resolution
-//                imageName = randomImage
                                 
-                message = isActivated ? message1 : message2
+                message = imageNumber % 2 == 0 ? message1 : message2
+
+                //                var randomImage = "image\(Int.random(in: 0..<10))" // MARK: this is my resolution
+                //                imageName = randomImage
                 
-                imageName = imageName == "image9" ? "image0" : "image\(imageNumber)"
+                imageName = "image\(imageNumber)"
                 imageNumber = imageNumber == 9 ? 0 : imageNumber + 1
-                
-                isActivated.toggle()
             }
             .buttonStyle(.borderedProminent)
             .font(.title2)
