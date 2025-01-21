@@ -10,9 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var message = ""
     @State private var imageName = ""
-    @State private var imageNumber = 0
-    @State private var messageIndex = 0
-    
+
     var body: some View {
         
         VStack {
@@ -38,14 +36,9 @@ struct ContentView: View {
             Button("Press Me!") {
                 let messages = ["Gadzooks my friend! I am astonished at how utterly magnificient you are!", "You Are Awesome!", "You Are Great!", "Fabulous? That's You!", "Swift Rules!", "When the Genius Needs Help, They Call You!"]
                 
-                message = messages[messageIndex]
-                messageIndex = messageIndex == messages.count-1 ? 0 : messageIndex+1
-                
-                //                var randomImage = "image\(Int.random(in: 0..<10))" // MARK: this is my resolution
-                //                imageName = randomImage
-                
-                imageName = "image\(imageNumber)"
-                imageNumber = imageNumber == 9 ? 0 : imageNumber + 1
+                message = messages[Int.random(in: 0...messages.count-1)]
+
+                imageName = "image\(Int.random(in: 0...9))"
             }
             .buttonStyle(.borderedProminent)
             .font(.title2)
