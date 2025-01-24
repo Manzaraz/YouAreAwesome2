@@ -15,6 +15,7 @@ struct ContentView: View {
     @State private var lastImageNumber = -1
     @State private var audioPlayer: AVAudioPlayer!
     @State private var lastSoundNumber = -1
+    @State private var soundIsOn = false
     
     let numberOfImages = 9
     let numberOfSounds = 6
@@ -40,30 +41,47 @@ struct ContentView: View {
             
             Spacer()
             
-            Button("Press Me!") {
+            HStack {
+                Group {
+                    Text("Sound is \(soundIsOn ? "On" : "Off"):")
+                    Toggle("", isOn: $soundIsOn)
+                        .border(.blue)
+                        .labelsHidden()
+                        .onChange(of: soundIsOn) { oldValue, newValue in
+                            if audioPlayer != nil && audioPlayer.isPlaying {
+                                audioPlayer.stop()                                
+                            }
+                        }
+                }
                 
-                let messages = ["Gadzooks my friend! I am astonished at how utterly magnificient you are!", "You Are Awesome!", "You Are Great!", "Fabulous? That's You!", "Swift Rules!", "When the Genius Needs Help, They Call You!"]
-                                
-                lastMessageNumber = nonRepeatingRandom(
-                    lastNumber: lastMessageNumber,
-                    upperBounds: messages.count-1
-                )
-                message = messages[lastMessageNumber]
+                Spacer()
                 
-                lastImageNumber = nonRepeatingRandom(
-                    lastNumber: lastImageNumber,
-                    upperBounds: numberOfImages-1
-                )
-                imageName = "image\(lastImageNumber)"
-                
-                lastSoundNumber = nonRepeatingRandom(
-                    lastNumber: lastSoundNumber,
-                    upperBounds: numberOfSounds-1
-                )
-                playSound(soundName: "sound\(lastSoundNumber)")
+                Button("Press Me!") {
+                    let messages = ["Gadzooks my friend! I am astonished at how utterly magnificient you are!", "You Are Awesome!", "You Are Great!", "Fabulous? That's You!", "Swift Rules!", "When the Genius Needs Help, They Call You!"]
+                    
+                    lastMessageNumber = nonRepeatingRandom(
+                        lastNumber: lastMessageNumber,
+                        upperBounds: messages.count-1
+                    )
+                    message = messages[lastMessageNumber]
+                    
+                    lastImageNumber = nonRepeatingRandom(
+                        lastNumber: lastImageNumber,
+                        upperBounds: numberOfImages-1
+                    )
+                    imageName = "image\(lastImageNumber)"
+                    
+                    if soundIsOn {
+                        lastSoundNumber = nonRepeatingRandom(
+                            lastNumber: lastSoundNumber,
+                            upperBounds: numberOfSounds-1
+                        )
+                        playSound(soundName: "sound\(lastSoundNumber)")
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .font(.title2)
             }
-            .buttonStyle(.borderedProminent)
-            .font(.title2)
         }
         .padding()
     }
@@ -94,6 +112,7 @@ struct ContentView: View {
         }
     }
 }
+
 
 #Preview {
     ContentView()
