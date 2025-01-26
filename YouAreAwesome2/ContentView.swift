@@ -41,6 +41,9 @@ struct ContentView: View {
             
             Spacer()
             
+            Divider()
+                .padding()
+            
             HStack {
                 Group {
                     Text("Sound is \(soundIsOn ? "On" : "Off"):")
