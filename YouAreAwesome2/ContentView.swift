@@ -15,7 +15,7 @@ struct ContentView: View {
     @State private var lastImageNumber = -1
     @State private var audioPlayer: AVAudioPlayer!
     @State private var lastSoundNumber = -1
-    @State private var soundIsOn = false
+    @State private var soundIsOn = true
     
     let numberOfImages = 9
     let numberOfSounds = 6
@@ -48,13 +48,13 @@ struct ContentView: View {
                 Group {
                     Text("Sound is \(soundIsOn ? "On" : "Off"):")
                     Toggle("", isOn: $soundIsOn)
-                        .border(.blue)
                         .labelsHidden()
                         .onChange(of: soundIsOn) { oldValue, newValue in
                             if audioPlayer != nil && audioPlayer.isPlaying {
                                 audioPlayer.stop()                                
                             }
                         }
+                    
                 }
                 
                 Spacer()
@@ -85,6 +85,7 @@ struct ContentView: View {
                 .buttonStyle(.borderedProminent)
                 .font(.title2)
             }
+            .tint(.accent)
         }
         .padding()
     }
